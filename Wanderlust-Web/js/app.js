@@ -10,15 +10,12 @@ var app = app || {};
         var selector = '#container';
         var nav = '#menu';
 
-        //var userModel = app.userModel.load(requester);
-       // //var noteModel = app.noteModel.load(requester);
-
-        var notesViewBag = app.noteViews.load();
+        var locationsViewBag = app.locationViews.load();
         var usersViewBag = app.userViews.load();
-        var homeViewBag =app.homeViews.load();
+        var homeViewBag = app.homeViews.load();
 
         var usersController = app.userController.load(usersViewBag);
-        var notesController = app.noteController.load( notesViewBag);
+        var locationsController = app.locationController.load(locationsViewBag);
         var homeController = app.homeController.load(homeViewBag);
 
 
@@ -51,13 +48,10 @@ var app = app || {};
              usersController.logout().done();
          });
          this.get('#/office/', function () {
-             notesController.loadOfficeNotes(selector);
+             locationsController.loadAllNotes(selector);
          });
-         this.get('#/myNotes/', function () {
-             notesController.loadUserNotes(selector);
-         });
-         this.get('#/addNote/', function () {
-             notesController.loadAddNotePage(selector);
+         this.get('#/addLocation/', function () {
+             locationsController.loadAddLocationPage(selector);
          });
 
         //User events
@@ -73,20 +67,20 @@ var app = app || {};
 
         //Note event
 
-        this.bind('add-note', function (e, data) {
-            notesController.addNote(data);
+        this.bind('add-location', function (e, data) {
+            locationsController.addLocation(data);
         });
          this.bind('show-edit-note', function (e, data) {
-             notesController.loadEditNotePage(selector,data);
+             locationsController.showEditLocationPage(selector, data);
          });
         this.bind('edit-note', function (e, data) {
-            notesController.editNote(data);
+            locationsController.editLocation(data);
         });
          this.bind('show-delete-note', function (e, data) {
-             notesController.loadDeleteNotePage(selector,data);
+             locationsController.loadDeleteLocationPage(selector,data);
          });
         this.bind('delete-note', function (e, id) {
-            notesController.deleteNote(id);
+            locationsController.deleteLocation(id);
         });
         this.get('#/',function(){
 
